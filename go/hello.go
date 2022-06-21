@@ -1,6 +1,9 @@
 package main
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 func reverseString(s []byte) []byte {
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
@@ -61,6 +64,35 @@ func isPalindrome(s string) bool {
 
 }
 
+func furthestBuilding(heights []int, bricks int, ladders int) int {
+	currentDistance := 0
+	longestLadders := make([]int, ladders)
+	bricksRemaining := bricks
+
+	for currentDistance < len(heights)-1 {
+		if heights[currentDistance] >= heights[currentDistance+1] {
+			currentDistance++
+		} else {
+			bricksNeeded := heights[currentDistance+1] - heights[currentDistance]
+
+			if ladders > 0 && bricksNeeded > longestLadders[ladders-1] {
+				for ladderIndex := 0; ladderIndex < ladders && bricksNeeded > 0; ladderIndex++ {
+					if longestLadders[ladderIndex] < bricksNeeded {
+						longestLadders[ladderIndex], bricksNeeded = bricksNeeded, longestLadders[ladderIndex]
+					}
+				}
+			}
+
+			if bricksNeeded > bricksRemaining {
+				return currentDistance
+			}
+			bricksRemaining -= bricksNeeded
+			currentDistance++
+		}
+	}
+
+	return len(heights) - 1
+}
 func main() {
 	//fmt.Println(problem.countPrimes(27))
 
@@ -70,5 +102,10 @@ func main() {
 
 	// mergeTwoLists(&l1, &l2)
 
-	isPalindrome("0P")
+	heights := []int{4, 12, 2, 7, 3, 18, 20, 3, 19}
+
+	fmt.Println(furthestBuilding(heights, 10, 2))
+
+	heights2 := []int{14, 3, 19, 3}
+	fmt.Println(furthestBuilding(heights2, 17, 0))
 }

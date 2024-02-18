@@ -26,12 +26,18 @@ class Result
         float neg = 0;
         float zero = 0;
         float pos = 0;
-        foreach (int i in arr) {
-            if (i == 0) {
+        foreach (int i in arr)
+        {
+            if (i == 0)
+            {
                 zero++;
-            } else if (i < 0) {
+            }
+            else if (i < 0)
+            {
                 neg++;
-            } else {
+            }
+            else
+            {
                 pos++;
             }
         }
@@ -44,7 +50,7 @@ class Result
         Console.WriteLine(pos.ToString("0.000000"));
         Console.WriteLine(neg.ToString("0.000000"));
         Console.WriteLine(zero.ToString("0.000000"));
-        
+
     }
 
     public static void miniMaxSum(List<int> arr)
@@ -68,7 +74,8 @@ class Result
     public static int lonelyinteger(List<int> a)
     {
         var grouped = a.GroupBy(x => x);
-        foreach (var group in grouped) {
+        foreach (var group in grouped)
+        {
             if (group.Count() == 1)
             {
                 return group.Key;
@@ -78,7 +85,7 @@ class Result
         return -1;
     }
 
-        public static int getUniqueCharacter(string s)
+    public static int getUniqueCharacter(string s)
     {
         int[] hash = new int[26];
         for (int c = 0; c != 26; c++)
@@ -88,17 +95,17 @@ class Result
         for (int x = 0; x != s.Length; x++)
         {
             int current_hash = (int)s[x] - (int)'a';
-            hash[current_hash] ++;
+            hash[current_hash]++;
         }
-        
+
         int toReturn = -1;
-        
+
         for (int c = 0; c != 26; c++)
         {
             if (hash[c] == 1)
             {
                 char finder = (char)(c + (int)'a');
-                int currentIndex = s.IndexOf(finder);   
+                int currentIndex = s.IndexOf(finder);
                 if (toReturn == -1 || currentIndex < toReturn)
                 {
                     toReturn = currentIndex;
@@ -108,19 +115,34 @@ class Result
         return toReturn;
     }
 
+    public static void Euler1()
+    {
+        int t = Convert.ToInt32(Console.ReadLine());
+        for (int a0 = 0; a0 < t; a0++)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            int n = Convert.ToInt32(Console.ReadLine());
+            
+            n = n - 1;
+            
+            long threes = n/3;
+            threes = (threes * (threes + 1)) / 2 * 3;
+            
+            long fives = n/5;
+            fives = (fives * (fives + 1)) / 2 * 5;
+            
+            long fifteens = n/15;
+            fifteens = (fifteens * (fifteens + 1)) / 2 * 15;
+            Console.WriteLine(threes + fives - fifteens);
+        }
+    }
 }
 
 class Solution
 {
     public static void Main(string[] args)
     {
-        //int n = Convert.ToInt32(Console.ReadLine().Trim());
-
-        //List<int> arr = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(arrTemp => Convert.ToInt32(arrTemp)).ToList();
-
-        //Result.plusMinus(arr);
-
-        Console.WriteLine(Result.getUniqueCharacter("hackthegame"));
-        //Console.WriteLine(Result.lonelyinteger(new List<int>() {1,2,3,4,1,2,3}));
+        Result.Euler1();
     }
 }
